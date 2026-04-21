@@ -1,8 +1,3 @@
-import Mathlib.Data.Set.Basic
-import Mathlib.Data.Set.Function
-import Mathlib.Data.Set.Lattice
-import Mathlib.Data.Setoid.Basic
-import Mathlib.Logic.Function.Basic
 import Mathlib.Tactic
 
 namespace CanonicalForms

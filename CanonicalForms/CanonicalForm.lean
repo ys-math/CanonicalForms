@@ -1,15 +1,8 @@
-import Mathlib.Data.Set.Basic
-import Mathlib.Data.Set.Function
-import Mathlib.Data.Set.Lattice
-import Mathlib.Data.Setoid.Basic
-import Mathlib.Logic.Function.Basic
-import Mathlib.Tactic
-
 import CanonicalForms.Basic
 
 namespace CanonicalForms
 
-variable {α β γ : Type*}
+variable {α β : Type*}
 
 structure IsCanonicalForm (r : α → α → Prop) (C : α → α) : Prop where
   inv    : IsInvariant r C
