@@ -36,6 +36,6 @@ jobs:
 
       - name: Check for sorry
         run: |
-          if grep -r "sorry" --include="*.lean" CanonicalForms/; then
+          if grep -r "sorry" --include="*.lean" .; then
             echo "::warning::Incomplete proofs (sorry) remain in the project."
           fi
