@@ -4,17 +4,25 @@ namespace CanonicalForms
 
 variable {α β : Type*}
 
-structure IsCanonicalForm (r : α → α → Prop) (C : α → α) : Prop where
+structure IsCanonicalForm
+    (r : α → α → Prop)
+    (C : α → α) :
+    Prop where
   inv    : IsInvariant r C
   equiv  : ∀x : α, r x (C x)
 
 def skeleton (C : α → α) : Set α := Set.range C
 
-theorem canonicalForm_idempotent (r : α → α → Prop) (C : α → α) (hC : IsCanonicalForm r C) : C ∘ C = C := by
+theorem canonicalForm_idempotent
+    (r : α → α → Prop)
+    (C : α → α)
+    (hC : IsCanonicalForm r C) :
+    C ∘ C = C := by
   funext x
   exact (hC.inv x (C x) (hC.equiv x)).symm
 
-theorem canonicalForm_to_section [s : Setoid α]
+theorem canonicalForm_to_section
+    [s : Setoid α]
     (C : α → α)
     (hC : IsCanonicalForm (· ≈ ·) C) :
     ∃ sec : Quotient s → α, IsRetractionSectionPair (Quotient.mk s) sec ∧ C = sec ∘ Quotient.mk s := by
@@ -29,7 +37,8 @@ theorem canonicalForm_to_section [s : Setoid α]
   · funext x
     simp [Function.comp]
 
-theorem section_to_canonicalForm [s : Setoid α]
+theorem section_to_canonicalForm
+    [s : Setoid α]
     (C : α → α)
     (sec : Quotient s → α)
     (hpair : IsRetractionSectionPair (Quotient.mk s) sec)
@@ -44,7 +53,8 @@ theorem section_to_canonicalForm [s : Setoid α]
     rw [hfact]
     exact Quotient.exact (congr_fun hpair ⟦x⟧).symm
 
-theorem canonicalForm_iff_section [s : Setoid α]
+theorem canonicalForm_iff_section
+    [s : Setoid α]
     (C : α → α) :
     IsCanonicalForm (· ≈ ·) C ↔ ∃ sec : Quotient s → α, IsRetractionSectionPair (Quotient.mk s) sec ∧ C = sec ∘ Quotient.mk s := by
   constructor
@@ -52,7 +62,8 @@ theorem canonicalForm_iff_section [s : Setoid α]
   · rintro ⟨sec, hpair, hfact⟩
     exact section_to_canonicalForm C sec hpair hfact
 
-theorem canonicalForm_iff_section_of_completeInvariant [s : Setoid α]
+theorem canonicalForm_iff_section_of_completeInvariant
+  [s : Setoid α]
   (I : α → β)
   (hInv : IsCompleteInvariant (· ≈ ·) I)
   (hSurj : Function.Surjective I)
