@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,amsfonts,amsthm,setspace,graphicx,mathtools,tikz-cd,tikz,xcolor}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+\newtheoremstyle{noperiod}
+  {}
+  {}
+  {\normalfont}
+  {}
+  {\bfseries}
+  { }
+  {.5em}
+  {}
+
+\theoremstyle{noperiod}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1 ]\ignorespaces
+}{
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newcommand{\notmid}{\mathrel{\ooalign{$\mkern-5mu\not$\crcr$|$}}}
+
+\renewcommand{\proofname}{\bfseries Proof}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{CanonicalForms}
+\date{}
+\author{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We formulate, in the language of set theory, the concepts of invariant and
+canonical form for an equivalence relation $\sim$ on a set $X$.
+A map $f \colon X \to Y$ is called an invariant of $\sim$ if $x \sim y
+\implies f(x) = f(y)$, and a complete invariant if equality of images
+also implies the equivalence relation.
+A canonical form is an invariant $C \colon X \to X$ satisfying $x \sim
+C(x)$ for all $x \in X$; its image $C(X)$ is called the skeleton or
+complete system of representatives of $\sim$.
+We characterise canonical forms via retraction--section pairs, showing that $C$
+is a canonical form if and only if there exists a section $s$ of the quotient
+map $q \colon X \to X/\sim$ such that $C = s \circ q$.
+An analogous characterisation holds for surjective complete invariants.
+We prove that every complete invariant $I \colon X \to Y$ factors uniquely
+through the surjective complete invariant $I' \colon X \to I(X)$, and define
+$s' \circ I'$ as the canonical form of $\sim$ determined by the complete
+invariant $I$, whenever a section $s'$ of $I'$ exists.
+Assuming the axiom of choice, we show that the canonical form determined by any
+complete invariant exists.
+Propositions that assume the axiom of choice are marked
+with~$^{\textrm{AC}}$.
+\end{abstract}
+
+\begin{definition}
+Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be an
+equivalence relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
+if the following condition holds.
+\begin{center}
+  ${^{\forall}x,y} \in X,\ (x \sim y \implies f(x) = f(y))$
+\end{center}
+We further say that $f$ is a \textbf{complete invariant} of $\sim$ if the
+following condition holds.
+\begin{center}
+  ${^{\forall}x,y} \in X,\ (x \sim y \iff f(x) = f(y))$
+\end{center}
+\hfill $\square$
+\end{definition}
+
+\begin{example}
+Let $X$ be a set. Let $\sim$ be an equivalence relation on $X$ and let
+$q \colon X \to X/\sim$ be the quotient map. Then $q$ is a complete invariant
+of $\sim$.
+\hfill $\square$
+\end{example}
+
+\begin{definition}
+Let $X, Y$ be sets. Let $C \colon X \to X$ be an invariant of an equivalence
+relation $\sim$ on $X$. We say that $C$ is a \textbf{canonical form} of $\sim$
+if the following condition holds.
+\begin{center}
+  ${^{\forall}x} \in X,\ x \sim C(x)$
+\end{center}
+We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} or the
+\textbf{complete system of representatives} of $\sim$.
+\hfill $\square$
+\end{definition}
+
+\begin{proposition}
+Let $X, Y$ be sets. Let $C \colon X \to X$ be a canonical form of an
+equivalence relation $\sim$ on $X$. Then $C = C \circ C$.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+Let $x \in X$. Since $x \sim C(x)$, we have $C(x) = C(C(x))$. Therefore
+$C = C \circ C$.
+\end{proof}
+
+\begin{definition}
+Let $X, Y$ be sets and let $r \colon X \to Y$ and $s \colon Y \to X$ be maps.
+We call the pair $(r, s)$ a \textbf{retraction--section pair} if the following
+condition holds. We call $r$ the \textbf{retraction} of $s$, and $s$ the
+\textbf{section} of $r$.
+\begin{center}
+  $r \circ s = \mathrm{id}_Y$
+\end{center}
+\hfill $\square$
+\end{definition}
+
+\begin{lemma}
+Let $X$ be a set and let $q \colon X \to X/\sim$ be the quotient map of an
+equivalence relation $\sim$ on $X$. For a map $C \colon X \to X$, the following
+conditions \textup{(1)} and \textup{(2)} are equivalent.
+\def\labelenumi{(\theenumi)}
+\begin{enumerate}
+  \item $C$ is a canonical form of $\sim$.
+  \item There exists a section $s \colon X/\sim \to X$ of $q \colon X \to X/\sim$
+        such that $C = s \circ q$.
+\end{enumerate}
+\hfill $\square$
+\end{lemma}
+
+\begin{proof}
+$(1) \Rightarrow (2)$:\; Assume $C$ is a canonical form of $\sim$. For each
+$y \in X/\sim$, since $q$ is surjective there exists $x \in X$ such that
+$y = q(x)$. Set $s(y) = C(x)$. For any $x' \in X$ with $q(x) = q(x')$, we
+have $x \sim x'$, so $C(x) = C(x')$. Thus $s \colon X/\sim \to X$ is
+well-defined. For any $x \in X$, $C(x) = s(q(x))$, so $C = s \circ q$. For
+any $x \in X$, $(q \circ s)(q(x)) = q(s(q(x))) = q(C(x))$, and since
+$x \sim C(x)$ we have $q(C(x)) = q(x)$. Therefore $q \circ s =
+\mathrm{id}_{X/\sim}$.
+
+$(2) \Rightarrow (1)$:\; Assume there exists a section $s \colon X/\sim \to X$
+of $q \colon X \to X/\sim$ such that $C = s \circ q$. For $x, x' \in X$, if
+$x \sim x'$, then $C(x) = (s \circ q)(x) = s(q(x)) = s(q(x')) = (s \circ q)(x')
+= C(x')$, so $C$ is an invariant of $\sim$. For any $x \in X$,
+$q(x) = \mathrm{id}_{X/\sim}(q(x)) = (q \circ s)(q(x)) = q((s \circ q)(x)) =
+q(C(x))$, so $x \sim C(x)$. Therefore $C$ is a canonical form of $\sim$.
+\end{proof}
+
+\begin{proposition}
+Let $X, Y$ be sets and let $I \colon X \to Y$ be a surjective complete invariant
+of an equivalence relation $\sim$ on $X$. For a map $C \colon X \to X$, the
+following conditions \textup{(1)} and \textup{(2)} are equivalent.
+\def\labelenumi{(\theenumi)}
+\begin{enumerate}
+  \item $C$ is a canonical form of $\sim$.
+  \item There exists a section $s' \colon Y \to X$ of $I \colon X \to Y$ such
+        that $C = s' \circ I$.\hfill $\square$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By Lemma~1, it suffices to show that the existence of a section
+$s \colon X/\sim \to X$ of $q \colon X \to X/\sim$ with $C = s \circ q$ is
+equivalent to~(2). Define $\bar{I} \colon X/\sim \to Y$ by $\bar{I}(q(x)) = I(x)$
+for all $x \in X$. When $x \sim x'$, since $I$ is an invariant we have
+$I(x) = I(x')$, so $\bar{I}$ is well-defined. For any $x, x' \in X$, if
+$I(x) = I(x')$ then, since $I$ is a complete invariant, $x \sim x'$, hence
+$q(x) = q(x')$, so $\bar{I}$ is injective. For any $y \in Y$, since
+$I \colon X \to Y$ is surjective there exists $x \in X$ with $I(x) = y$, giving
+$\bar{I}(q(x)) = y$. Therefore $\bar{I}$ is bijective and hence invertible.
+
+Suppose there exists a section $s$ of $q$ with $C = s \circ q$. Set
+$s' = s \circ \bar{I}^{-1}$. Since $q = \bar{I}^{-1} \circ I$, we have
+$C = s \circ \bar{I}^{-1} \circ I = s' \circ I$. Moreover,
+$I \circ s' = (\bar{I} \circ q) \circ (s \circ \bar{I}^{-1})
+= \bar{I} \circ (q \circ s) \circ \bar{I}^{-1}
+= \bar{I} \circ \mathrm{id}_{X/\sim} \circ \bar{I}^{-1}
+= \mathrm{id}_Y$,
+so $s'$ is a section of $I$.
+
+Conversely, suppose~(2) holds. Set $s = s' \circ \bar{I}$. Then
+$s \circ q = s' \circ \bar{I} \circ q = s' \circ I = C$.
+Since $I \circ s' = \mathrm{id}_Y$, we have $I \circ s' \circ I = I$,
+and therefore $I \circ C = I$.
+Since $I = \bar{I} \circ q$, it follows that $\bar{I} \circ q \circ C = \bar{I} \circ q$,
+and by injectivity of $\bar{I}$ we obtain $q \circ C = q$.
+For any $y \in X/\sim$ there exists $x \in X$ such that $y = q(x)$.
+Then
+\[
+(q \circ s)(y)
+= (q \circ s' \circ \bar{I})(y)
+= (q \circ s' \circ \bar{I} \circ q)(x)
+= (q \circ s' \circ I)(x)
+= (q \circ C)(x)
+= q(x) = y,
+\]
+so $q \circ s = \mathrm{id}_{X/\sim}$.
+\end{proof}
+
+\begin{proposition}
+Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
+equivalence relation $\sim$ on $X$. The unique map $I' \colon X \to I(X)$
+satisfying $I = i \circ I'$ with respect to the inclusion $i \colon I(X) \to Y$
+is surjective and is a complete invariant of $\sim$.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+Define $I' \colon X \to I(X)$ by $I'(x) = I(x)$ for all $x \in X$. Since
+$I = i \circ I'$ and $I'(X) = I(X)$, $I'$ is surjective. For any $x, x' \in X$,
+$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$,
+so $I'$ is a complete invariant of $\sim$. If $I'' \colon X \to I(X)$ satisfies
+the condition, then $I'(x) = I(x) = I''(x)$ for all $x \in X$, so $I'$ is
+unique.
+\end{proof}
+
+\begin{definition}
+Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
+equivalence relation $\sim$ on $X$. When a section $s' \colon I(X) \to X$ of
+the unique map $I' \colon X \to I(X)$ satisfying $I = i \circ I'$ with respect
+to the inclusion $i \colon I(X) \to Y$ exists, we call the canonical form
+$s' \circ I'$ of $\sim$ the \textbf{canonical form of $\sim$ determined by the
+complete invariant $I$}.
+\hfill $\square$
+\end{definition}
+
+\begin{lemma}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+Let $X, Y$ be sets and let $f \colon X \to Y$ be a surjection. Then there
+exists a map $g \colon Y \to X$ such that $f \circ g = \mathrm{id}_Y$.
+\hfill $\square$
+\end{lemma}
+
+\begin{proof}
+Since $f \colon X \to Y$ is surjective, $f^{-1}(y) \neq \emptyset$ for every
+$y \in Y$. Therefore, by the axiom of choice, $\prod_{y \in Y} f^{-1}(y) \neq
+\emptyset$, so there exists $g \in \prod_{y \in Y} f^{-1}(y)$. This map
+$g \colon Y \to X$ satisfies $f \circ g = \mathrm{id}_Y$.
+\end{proof}
+
+\begin{proposition}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+Let $X, Y$ be sets and let $\sim$ be an equivalence relation on $X$. Then the
+canonical form of $\sim$ determined by the complete invariant $I$ exists.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+Let $q \colon X \to X/\sim$ be the quotient map. Since $q$ is surjective, by
+Lemma~2 there exists a map $s \colon X/\sim \to X$ satisfying $q \circ s =
+\mathrm{id}_{X/\sim}$. By Lemma~1, $s \circ q$ is a canonical form of $\sim$,
+and by Proposition~2, taking $I'$ to be the surjection determined by $I$, there
+exists a section $s' \colon I(X) \to X$ of $I'$ such that $s \circ q = s' \circ
+I'$. Then $s' \circ I'$ is the canonical form of $\sim$ determined by the
+complete invariant $I$.
+\end{proof}
+
+\end{document}

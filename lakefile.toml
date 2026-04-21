@@ -5,6 +5,7 @@ defaultTargets = ["CanonicalForms"]
 name = "CanonicalForms"
 
 [[require]]
+scope = "leanprover-community"
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
-rev = "master"
+rev = "v4.29.1"

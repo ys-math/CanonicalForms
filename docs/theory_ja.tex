@@ -1,0 +1,162 @@
+\documentclass[uplatex,dvipdfmx]{jsarticle}
+\usepackage{amssymb,amsmath,amsfonts,amsthm,setspace,graphicx,mathtools,quiver,tikz-cd,tikz,xcolor}
+\usepackage[hyphens]{url}
+\usepackage[dvipdfmx]{hyperref}
+
+\newtheoremstyle{noperiod}
+  {}
+  {}
+  {\normalfont}
+  {}
+  {\bfseries}
+  { }
+  {.5em}
+  {}
+
+\theoremstyle{noperiod}
+\newtheorem{definition}{定義}
+\newtheorem{proposition}{命題}
+\newtheorem{lemma}{補題}
+\newtheorem{theorem}{定理}
+\newtheorem{example}{例}
+\newtheorem{corollary}{系}
+\newtheorem{remark}{注意}
+
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1 ]\ignorespaces
+}{
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newcommand{\notmid}{\mathrel{\ooalign{$\mkern-5mu\not$\crcr$|$}}}
+
+\renewcommand{\proofname}{\bfseries 証明}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{CanonicalForms}
+\date{}
+\author{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+集合$X$上の同値関係$\sim$における不変量と標準形の概念を集合論の言葉で定式化する.\
+写像$f \colon X \to Y$が$x \sim y \implies f(x) = f(y)$を満たすとき$f$を$\sim$の不変量といい,\ 像が一致するならば同値関係も成り立つとき$f$を完全な不変量という.\ 標準形とは,\ 任意の$x \in X$に対して$x \sim C(x)$を満たす不変量$C \colon X \to X$のことであり,\ その像$C(X)$を$\sim$の骨格または完全代表系と呼ぶ.\ レトラクション-セクションペアを用いて標準形を特徴づけ,\ $C$が標準形であることと,\ 商写像$q \colon X \to X/\sim$のセクション$s$が存在して$C = s \circ q$となることが同値であることを示す.\ 全射である完全な不変量に対しても同様の特徴づけが成り立つ.\ 任意の完全な不変量$I \colon X \to Y$は全射である完全な不変量$I' \colon X \to I(X)$を用いて一意的に分解されることを証明し,\ $I'$のセクション$s'$が存在するとき$s' \circ I'$を完全な不変量$I$によって定まる$\sim$の標準形として定義する.\ 選択公理を仮定すれば任意の完全な不変量によって定まる標準形が存在することを示す.\ 選択公理を仮定した命題には$^{\textrm{AC}}$を付した.
+\end{abstract}
+
+\begin{definition}
+$X,Y$を集合とする.\ $f \colon X \to Y$を写像とし$\sim$を$X$上の同値関係とする.\ 次の条件が成り立つとき$f$は$\sim$の\textbf{不変量}であるという.
+\begin{center}
+  ${^{\forall}x,y} \in X,\ (x \sim y \implies f(x) = f(y))$
+\end{center}
+更に次の条件が成り立つとき$f$は$\sim$の\textbf{完全な不変量}であるという.
+\begin{center}
+  ${^{\forall}x,y} \in X,\ (x \sim y \iff f(x) = f(y))$
+\end{center}
+\hfill $\square$
+\end{definition}
+
+\begin{example}
+$X$を集合とする.\ $\sim$を$X$上の同値関係とし$q \colon X \to X/\sim$を商写像とする.\ このとき$q$は$\sim$の完全な不変量である.
+\hfill $\square$
+\end{example}
+
+\begin{definition}
+$X,Y$を集合とする.\ $C \colon X \to X$を$X$上の同値関係$\sim$の不変量とする.\ 次の条件が成り立つとき$C$は$\sim$の\textbf{標準形}であるという.
+\begin{center}
+  ${^{\forall}x} \in X,\ x \sim C(x)$
+\end{center}
+$C$による$X$の像$C(X)$を$\sim$の\textbf{骨格}または\textbf{完全代表系}と呼ぶ.
+\hfill $\square$
+\end{definition}
+
+\begin{proposition}
+$X,Y$を集合とする.\ $C \colon X \to X$を$X$上の同値関係$\sim$の標準形とする.\ このとき$C = C \circ C$である.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+$x \in X$とする.\ $x \sim C(x)$であるから$C(x) = C(C(x))$である.\ したがって$C = C \circ C$である.
+\end{proof}
+
+\begin{definition}
+$X,Y$を集合とし$r \colon X \to Y$と$s \colon Y \to X$を写像とする.\ 次の条件が成り立つとき組$(r,s)$を\textbf{レトラクション-セクションペア}と呼ぶ.\ 特に$r$を$s$の\textbf{レトラクション},\ $s$を$r$の\textbf{セクション}と呼ぶ.
+\begin{center}
+  $r \circ s = \mathrm{id}_Y$
+\end{center}
+\hfill $\square$
+\end{definition}
+
+\begin{lemma}
+$X$を集合とし$q \colon X \to X/\sim$を$X$上の同値関係$\sim$の商写像とする.\ $C \colon X \to X$を写像とするとき次の(1)と(2)は同値である.
+\def\labelenumi{(\theenumi)}
+\begin{enumerate}
+  \item $C$は$\sim$の標準形である.
+  \item $C = s \circ q$となる$q \colon X \to X/\sim$のセクション$s \colon X/\sim\ \to X$が存在する.
+\end{enumerate}
+\hfill $\square$
+\end{lemma}
+
+\begin{proof}
+(1)$\Rightarrow$(2):\; $C$は$\sim$の標準形であるとする.\ $y \in X/\sim$に対して$q$の全射性から$y = q(x)$となる$x \in X$が存在する.\ $s(y) = C(x)$とすると$q(x) = q(x')$となる任意の$x' \in X$に対して$x \sim x'$なので$C(x) = C(x')$である.\ したがって$s \colon X/\sim \ \to X$はwell-definedである.\ 任意の$x \in X$に対して$C(x) = s(q(x))$なので$C = s \circ q$である.\ 任意の$x \in X$に対して$(q \circ s)(q(x)) = q(s(q(x))) = q(C(x))$であり$x \sim C(x)$なので$q(C(x)) = q(x)$である.\ したがって$q \circ s = \mathrm{id}_{X/\sim}$となる.
+
+(2)$\Rightarrow$(1):\; $C = s \circ q$となる$q \colon X \to X/\sim$のセクション$s \colon X/\sim\ \to X$が存在するとする.\ $x,x' \in X$に対して$x \sim x'$であるならば$C(x) = (s \circ q)(x) = s(q(x)) = s(q(x')) = (s \circ q)(x') = C(x')$なので$C$は$\sim$の不変量である.\ 任意の$x \in X$に対して$q(x) = \mathrm{id}_{X/\sim}(q(x)) = (q \circ s)(q(x)) = q((s \circ q)(x)) = q(C(x))$なので$x \sim C(x)$である.\ したがって$C$は$\sim$の標準形である.
+\end{proof}
+
+\begin{proposition}
+$X,Y$を集合とし全射$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ $C \colon X \to X$を写像とすると次の(1)と(2)は同値である.
+\def\labelenumi{(\theenumi)}
+\begin{enumerate}
+  \item $C$は$\sim$の標準形である.
+  \item $C = s' \circ I$となる$I \colon X \to Y$のセクション$s' \colon Y \to X$が存在する.\hfill $\square$
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+補題1より$q \colon X \to X/\sim$を$\sim$の商写像としたとき$C = s \circ q$となる$q \colon X \to X/\sim$のセクション$s \colon X/\sim\ \to X$が存在することと(2)が同値であることを示せば良い.\ 任意の$x \in X$に対して$\bar{I}(q(x)) = I(x)$を満たすように$\bar{I} \colon X/\sim \ \to Y$を定めると$x \sim x'$のとき$I$は不変量なので$I(x) = I(x')$であり$\bar{I}$はwell-definedである.\ 任意の$x, x' \in X$に対して$I(x) = I(x')$のとき$I$は完全な不変量なので$x \sim x'$である.\ よって$q(x) = q(x')$なので$\bar{I}$は単射である.\ $y \in Y$に対して$I \colon X \to Y$は全射なので$I(x) = y$となる$x \in X$が存在し$\bar{I}(q(x)) = y$となる.\ よって$\bar{I}$は全単射なので$\bar{I}$は可逆である.
+
+$C = s \circ q$となる$q$のセクションが存在するとき$s' = s \circ \bar{I}^{-1}$とすると$q = \bar{I}^{-1} \circ I$なので$C = s \circ \bar{I}^{-1} \circ I = s' \circ I$となる.\ $I \circ s' = (\bar{I} \circ q) \circ (s \circ \bar{I}^{-1}) = \bar{I} \circ (q \circ s) \circ \bar{I}^{-1} = \bar{I} \circ \mathrm{id}_{X/\sim} \circ \bar{I}^{-1} = \mathrm{id}_Y$であるから$s'$は$I$のセクションである.
+
+(2)が成り立つとき$s = s' \circ \bar{I}$と置くと$s \circ q = s' \circ \bar{I} \circ q = s' \circ I = C$である.\ $I \circ s' = \mathrm{id}_Y$なので$I \circ s' \circ I = I$であり$I \circ C = I$である.\ $I = \bar{I} \circ q$なので$\bar{I} \circ q \circ C = \bar{I} \circ q$であり$\bar{I}$の単射性より$q \circ C = q$となる.\ 任意の$y \in X/\sim$に対して$y = q(x)$となる$x \in X$が存在する.\ このとき$(q \circ s)(y) = (q \circ s' \circ \bar{I})(y) = (q \circ s' \circ \bar{I} \circ q)(x) = (q \circ s' \circ I)(x) = (q \circ C)(x) = q(x) = y$なので$q \circ s = \mathrm{id}_{X/\sim}$である.
+\end{proof}
+
+\begin{proposition}
+$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像$I' \colon X \to I(X)$は全射かつ$\sim$の完全な不変量である.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+任意の$x \in X$に対して$I' \colon X \to I(X)$を$I'(x) = I(x)$で定める.\ $I = i \circ I'$であり$I'(X) = I(X)$だから$I'$は全射である.\ 任意の$x, x' \in X$に対して$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$なので$I'$は$\sim$の完全な不変量である.\ $I'' \colon X \to I(X)$が条件を満たすとすると任意の$x \in X$に対して$I'(x) = I(x) = I''(x)$なので$I'$は一意的である.
+\end{proof}
+
+\begin{definition}
+$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像$I' \colon X \to I(X)$のセクション$s' \colon I(X) \to X$が存在するとき$\sim$の標準形$s' \circ I'$を$\sim$の完全な不変量$I$によって定まる標準形と呼ぶ.
+\hfill $\square$
+\end{definition}
+
+\begin{lemma}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+$X,Y$を集合とし$f \colon X \to Y$を全射とすると$f \circ g = \mathrm{id}_Y$となる写像$g \colon Y \to X$が存在する.
+\hfill $\square$
+\end{lemma}
+
+\begin{proof}
+$f \colon X \to Y$は全射なので任意の$y \in Y$に対して$f^{-1}(y) \neq \emptyset$である.\ したがって選択公理により$\prod_{y \in Y}f^{-1}(y) \neq \emptyset$であり$g \in \prod_{y \in Y}f^{-1}(y)$が存在する.\ この$g \colon Y \to X$は$f \circ g = \mathrm{id}_Y$を満たす.
+\end{proof}
+
+\begin{proposition}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+$X,Y$を集合とし$\sim$を$X$上の同値関係とする.\ このとき$\sim$の完全な不変量$I$によって定まる標準形は存在する.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+$q \colon X \to X/\sim$を商写像とすると$q$は全射なので補題2から$q \circ s = \mathrm{id}_{X/\sim}$を満たす写像$s \colon X/\sim \ \to X$が存在する.\ 補題1より$s \circ q$は$\sim$の標準形であり命題2より$I'$を$I$によって定まる全射とすれば$s \circ q = s' \circ I'$となる$I'$のセクション$s' \colon I(X) \to X$が存在する.\ このとき$s' \circ I'$は$\sim$の完全な不変量$I$によって定まる標準形である.
+\end{proof}
+
+\end{document}
