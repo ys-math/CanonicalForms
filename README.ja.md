@@ -26,7 +26,6 @@
 ```
 CanonicalForms/
 ├── CanonicalForms/
-│   ├── CanonicalForms.lean        # ルートインポートファイル
 │   ├── Basic.lean                 # IsInvariant, IsCompleteInvariant
 │   ├── CanonicalForm.lean         # IsCanonicalForm, skeleton
 │   └── Existence.lean             # 存在定理（AC）

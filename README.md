@@ -26,7 +26,6 @@ For the complete natural language proofs, see the following documents.
 ```
 CanonicalForms/
 ├── CanonicalForms/
-│   ├── CanonicalForms.lean        # Root import file
 │   ├── Basic.lean                 # IsInvariant, IsCompleteInvariant
 │   ├── CanonicalForm.lean         # IsCanonicalForm, skeleton
 │   └── Existence.lean             # Existence theorem (AC)
