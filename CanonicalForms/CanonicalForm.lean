@@ -4,6 +4,7 @@ namespace CanonicalForms
 
 variable {α β : Type*}
 
+-- theory_en.tex / theory_ja.tex: Definition 2 (canonical form)
 structure IsCanonicalForm
     (r : α → α → Prop)
     (C : α → α) :
@@ -11,8 +12,10 @@ structure IsCanonicalForm
   inv    : IsInvariant r C
   equiv  : ∀x : α, r x (C x)
 
+-- theory_en.tex / theory_ja.tex: Definition 2 (skeleton / complete system of representatives)
 def skeleton (C : α → α) : Set α := Set.range C
 
+-- theory_en.tex / theory_ja.tex: Proposition 1 (C = C ∘ C)
 theorem canonicalForm_idempotent
     (r : α → α → Prop)
     (C : α → α)
@@ -21,6 +24,7 @@ theorem canonicalForm_idempotent
   funext x
   exact (hC.inv x (C x) (hC.equiv x)).symm
 
+-- theory_en.tex / theory_ja.tex: Lemma 1, direction (1) ⇒ (2)
 theorem canonicalForm_to_section
     [s : Setoid α]
     (C : α → α)
@@ -37,6 +41,7 @@ theorem canonicalForm_to_section
   · funext x
     simp [Function.comp]
 
+-- theory_en.tex / theory_ja.tex: Lemma 1, direction (2) ⇒ (1)
 theorem section_to_canonicalForm
     [s : Setoid α]
     (C : α → α)
@@ -53,6 +58,7 @@ theorem section_to_canonicalForm
     rw [hfact]
     exact Quotient.exact (congr_fun hpair ⟦x⟧).symm
 
+-- theory_en.tex / theory_ja.tex: Lemma 1 (canonical form ⟺ section of the quotient map)
 theorem canonicalForm_iff_section
     [s : Setoid α]
     (C : α → α) :
@@ -62,6 +68,7 @@ theorem canonicalForm_iff_section
   · rintro ⟨sec, hpair, hfact⟩
     exact section_to_canonicalForm C sec hpair hfact
 
+-- theory_en.tex / theory_ja.tex: Proposition 2 (canonical form ⟺ section of a surjective complete invariant)
 theorem canonicalForm_iff_section_of_completeInvariant
   [s : Setoid α]
   (I : α → β)

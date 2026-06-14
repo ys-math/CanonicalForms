@@ -70,6 +70,7 @@ with~$^{\textrm{AC}}$.
 \end{abstract}
 
 \begin{definition}
+% Lean: CanonicalForms.IsInvariant, CanonicalForms.IsCompleteInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be an
 equivalence relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
 if the following condition holds.
@@ -85,6 +86,7 @@ following condition holds.
 \end{definition}
 
 \begin{example}
+% Lean: CanonicalForms.quotientMap_isCompleteInvariant (CanonicalForms/Basic.lean)
 Let $X$ be a set. Let $\sim$ be an equivalence relation on $X$ and let
 $q \colon X \to X/\sim$ be the quotient map. Then $q$ is a complete invariant
 of $\sim$.
@@ -92,6 +94,7 @@ of $\sim$.
 \end{example}
 
 \begin{definition}
+% Lean: CanonicalForms.IsCanonicalForm, CanonicalForms.skeleton (CanonicalForms/CanonicalForm.lean)
 Let $X$ be sets. Let $C \colon X \to X$ be an invariant of an equivalence
 relation $\sim$ on $X$. We say that $C$ is a \textbf{canonical form} of $\sim$
 if the following condition holds.
@@ -104,6 +107,7 @@ We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} or the
 \end{definition}
 
 \begin{proposition}
+% Lean: CanonicalForms.canonicalForm_idempotent (CanonicalForms/CanonicalForm.lean)
 Let $X$ be sets. Let $C \colon X \to X$ be a canonical form of an
 equivalence relation $\sim$ on $X$. Then $C = C \circ C$.
 \hfill $\square$
@@ -115,6 +119,7 @@ $C = C \circ C$.
 \end{proof}
 
 \begin{definition}
+% Lean: CanonicalForms.IsRetractionSectionPair (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $r \colon X \to Y$ and $s \colon Y \to X$ be maps.
 We call the pair $(r, s)$ a \textbf{retraction--section pair} if the following
 condition holds. We call $r$ the \textbf{retraction} of $s$, and $s$ the
@@ -126,6 +131,7 @@ condition holds. We call $r$ the \textbf{retraction} of $s$, and $s$ the
 \end{definition}
 
 \begin{lemma}
+% Lean: CanonicalForms.canonicalForm_iff_section (directions: canonicalForm_to_section, section_to_canonicalForm) (CanonicalForms/CanonicalForm.lean)
 Let $X$ be a set and let $q \colon X \to X/\sim$ be the quotient map of an
 equivalence relation $\sim$ on $X$. For a map $C \colon X \to X$, the following
 conditions \textup{(1)} and \textup{(2)} are equivalent.
@@ -157,6 +163,7 @@ q(C(x))$, so $x \sim C(x)$. Therefore $C$ is a canonical form of $\sim$.
 \end{proof}
 
 \begin{proposition}
+% Lean: CanonicalForms.canonicalForm_iff_section_of_completeInvariant (CanonicalForms/CanonicalForm.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a surjective complete invariant
 of an equivalence relation $\sim$ on $X$. For a map $C \colon X \to X$, the
 following conditions \textup{(1)} and \textup{(2)} are equivalent.
@@ -208,6 +215,7 @@ so $q \circ s = \mathrm{id}_{X/\sim}$.
 \end{proof}
 
 \begin{proposition}
+% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
 equivalence relation $\sim$ on $X$. The unique map $I' \colon X \to I(X)$
 satisfying $I = i \circ I'$ with respect to the inclusion $i \colon I(X) \to Y$
@@ -225,6 +233,7 @@ unique.
 \end{proof}
 
 \begin{definition}
+% Lean: CanonicalForms.canonicalFormOfCompleteInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
 equivalence relation $\sim$ on $X$. When a section $s' \colon I(X) \to X$ of
 the unique map $I' \colon X \to I(X)$ satisfying $I = i \circ I'$ with respect
@@ -235,6 +244,7 @@ complete invariant $I$}.
 \end{definition}
 
 \begin{lemma}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+% Lean: CanonicalForms.surjective_has_section (CanonicalForms/Existence.lean)
 Let $X, Y$ be sets and let $f \colon X \to Y$ be a surjection. Then there
 exists a map $g \colon Y \to X$ such that $f \circ g = \mathrm{id}_Y$.
 \hfill $\square$
@@ -248,6 +258,7 @@ $g \colon Y \to X$ satisfies $f \circ g = \mathrm{id}_Y$.
 \end{proof}
 
 \begin{proposition}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
+% Lean: CanonicalForms.canonicalFormOfCompleteInvariant_exists (CanonicalForms/Existence.lean)
 Let $X, Y$ be sets and let $\sim$ be an equivalence relation on $X$. Then the
 canonical form of $\sim$ determined by the complete invariant $I$ exists.
 \hfill $\square$
