@@ -52,9 +52,3 @@ CanonicalForms/
 ## Use of AI
 
 AI models are used in this project only for planning, documentation, and annotation tasks. The mathematical statements and their Lean proofs are written and verified by the author.
-
----
-
-## License
-
-[Apache 2.0](LICENSE)
