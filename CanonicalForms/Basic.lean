@@ -38,49 +38,47 @@ theorem quotientMap_isCompleteInvariant
 
 -- theory_en.tex / theory_ja.tex: Definition 3 (retraction–section pair)
 def IsRetractionSectionPair
-    (r : α → β)
-    (s : β → α) :
+    (ret : α → β)
+    (sec : β → α) :
     Prop :=
-  r ∘ s = id
+  ret ∘ sec = id
 
 -- Helper lemma (no numbered TeX counterpart): pointwise form of a retraction–section pair.
 theorem IsRetractionSectionPair.pointwise
-    (r : α → β)
-    (s : β → α)
-    (h : IsRetractionSectionPair r s) :
-    ∀ y : β, r (s y) = y := by
+    (ret : α → β)
+    (sec : β → α)
+    (h : IsRetractionSectionPair ret sec) :
+    ∀ y : β, ret (sec y) = y := by
   intro y
   exact congr_fun h y
 
 -- Helper lemma (no numbered TeX counterpart): the section of a retraction–section pair is injective.
 theorem IsRetractionSectionPair.section_injective
-    (r : α → β)
-    (s : β → α)
-    (h : IsRetractionSectionPair r s) :
-    Function.Injective s := by
+    (ret : α → β)
+    (sec : β → α)
+    (h : IsRetractionSectionPair ret sec) :
+    Function.Injective sec := by
   intro y₁ y₂ heq
-  have := congr_arg r heq
-  simp [h.pointwise r s] at this
+  have := congr_arg ret heq
+  simp only [h.pointwise ret sec] at this
   exact this
+
+-- theory_en.tex / theory_ja.tex: Proposition 3 (the unique map I' : X → I(X) with I = i ∘ I')
+def corestriction (I : α → β) : α → Set.range I :=
+  fun x => ⟨I x, Set.mem_range_self x⟩
 
 -- theory_en.tex / theory_ja.tex: Proposition 3 (the corestriction I' is surjective and a complete invariant)
 theorem corestriction_surjective_completeInvariant
     (r : α → α → Prop)
     (I : α → β)
     (hI : IsCompleteInvariant r I) :
-    let I' : α → Set.range I := fun x => ⟨I x, Set.mem_range_self x⟩
-    Function.Surjective I' ∧ IsCompleteInvariant r I' := by
-  simp only
+    Function.Surjective (corestriction I) ∧ IsCompleteInvariant r (corestriction I) := by
   constructor
   · intro ⟨y, x, hx⟩
-    exact ⟨x, by simp [hx]⟩
+    exact ⟨x, by simp [corestriction, hx]⟩
   · intro x y
-    simp
+    simp only [corestriction, Subtype.mk.injEq]
     exact hI x y
-
--- theory_en.tex / theory_ja.tex: Proposition 3 (the unique map I' : X → I(X) with I = i ∘ I')
-def corestriction (I : α → β) : α → Set.range I :=
-  fun x => ⟨I x, Set.mem_range_self x⟩
 
 -- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' determined by the complete invariant I)
 def canonicalFormOfCompleteInvariant
@@ -88,3 +86,25 @@ def canonicalFormOfCompleteInvariant
     (s' : Set.range I → α) :
     α → α :=
   s' ∘ corestriction I
+
+-- Mathlib bridge (no numbered TeX counterpart): relates IsRetractionSectionPair to Mathlib's
+-- Function.RightInverse; sec is a section of ret iff sec is a right inverse of ret.
+theorem isRetractionSectionPair_iff_rightInverse
+    (ret : α → β)
+    (sec : β → α) :
+    IsRetractionSectionPair ret sec ↔ Function.RightInverse sec ret :=
+  Function.rightInverse_iff_comp.symm
+
+-- Mathlib bridge (no numbered TeX counterpart): relates IsCompleteInvariant to Mathlib's
+-- Setoid.ker; f is a complete invariant of the setoid s iff the kernel of f is s.
+theorem isCompleteInvariant_iff_ker_eq
+    [s : Setoid α]
+    (f : α → β) :
+    IsCompleteInvariant (· ≈ ·) f ↔ Setoid.ker f = s := by
+  constructor
+  · intro hf
+    ext x y
+    exact (hf x y).symm
+  · intro hker x y
+    subst hker
+    exact Iff.rfl

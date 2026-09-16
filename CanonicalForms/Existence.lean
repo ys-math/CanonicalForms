@@ -27,14 +27,16 @@ theorem canonicalForm_exists
 -- theory_en.tex / theory_ja.tex: Proposition 4 (AC) (the canonical form determined by a complete invariant exists)
 theorem canonicalFormOfCompleteInvariant_exists
     [s : Setoid α]
-    (I : α → α)
+    (I : α → β)
     (hI : IsCompleteInvariant (· ≈ ·) I) :
-    ∃ C : α → α, ∃ sec' : Set.range I → α, C = canonicalFormOfCompleteInvariant  I sec' ∧ IsCanonicalForm (· ≈ ·) C := by
+    ∃ s' : Set.range I → α,
+      IsRetractionSectionPair (corestriction I) s' ∧
+      IsCanonicalForm (· ≈ ·) (canonicalFormOfCompleteInvariant I s') := by
   let I' := corestriction I
   simp only [canonicalFormOfCompleteInvariant]
-  change ∃ C sec', C = sec' ∘ I' ∧ IsCanonicalForm (fun x1 x2 => x1 ≈ x2) C
+  change ∃ sec', IsRetractionSectionPair I' sec' ∧ IsCanonicalForm (fun x1 x2 => x1 ≈ x2) (sec' ∘ I')
   obtain ⟨C, hC⟩ := @canonicalForm_exists α s
   have hI' : IsCompleteInvariant (· ≈ ·) I' := (corestriction_surjective_completeInvariant s.r I hI).2
   have hI'_surj : Function.Surjective I' := (corestriction_surjective_completeInvariant s.r I hI).1
   obtain ⟨sec', hpair', hCpair'⟩ := (canonicalForm_iff_section_of_completeInvariant I' hI' hI'_surj C).mp hC
-  exact ⟨C, sec', hCpair', hC⟩
+  exact ⟨sec', hpair', hCpair' ▸ hC⟩

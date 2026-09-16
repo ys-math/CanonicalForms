@@ -35,7 +35,7 @@ theorem canonicalForm_to_section
   · funext q
     induction q using Quotient.ind with
     | _ x =>
-      simp [Function.comp]
+      simp only [Function.comp, Quotient.lift_mk, id_eq]
       rw [← Quotient.sound]
       exact hC.equiv x
   · funext x
@@ -51,7 +51,7 @@ theorem section_to_canonicalForm
     IsCanonicalForm (· ≈ ·) C := by
   refine ⟨?_inv, ?_equiv⟩
   · intro x y hxy
-    simp [hfact]
+    simp only [hfact, Function.comp_apply]
     exact congr_arg sec (Quotient.sound hxy)
   · intro x
     simp only [IsRetractionSectionPair] at hpair
@@ -86,7 +86,7 @@ theorem canonicalForm_iff_section_of_completeInvariant
     | _ x =>
       induction q₂ using Quotient.ind with
       | _ y =>
-      simp [Ibar] at heq
+      simp only [Quotient.lift_mk, Ibar] at heq
       exact Quotient.sound ((hInv x y).mpr heq)
   have hIbar_surj : Function.Surjective Ibar := by
     intro b
@@ -115,7 +115,7 @@ theorem canonicalForm_iff_section_of_completeInvariant
       funext x
       simp only [sec']
       rw [hfact]
-      simp
+      simp only [Function.comp_apply]
       congr
       simp only [hIpair]
       change ⟦x⟧ = (hIbar_inv ∘ Ibar) ⟦x⟧
@@ -132,7 +132,7 @@ theorem canonicalForm_iff_section_of_completeInvariant
       | _ x =>
         change (Quotient.mk s ∘ sec' ∘ Ibar ∘ Quotient.mk s) x = ⟦x⟧
         rw [← hIpair, ← hfact']
-        simp
+        simp only [Function.comp_apply]
         apply Quotient.sound
         apply (hInv (C x) x).mpr
         simp only [hfact', Function.comp]

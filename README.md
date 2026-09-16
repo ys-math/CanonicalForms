@@ -2,7 +2,7 @@
 
 A Lean 4 formalization of invariants and canonical forms for equivalence relations.
 
-[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions)
+[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml)
 
 ---
 
@@ -51,4 +51,12 @@ CanonicalForms/
 
 ## Use of AI
 
-AI models are used in this project only for planning, documentation, and annotation tasks. The mathematical statements and their Lean proofs are written and verified by the author.
+AI models are used in this project for planning, documentation, annotation, and build and CI configuration (including `scripts/CheckAxioms.lean`). The mathematical statements and their Lean proofs are written and verified by the author, except for the following changes, which the author requested and Claude Code (Claude Opus 5) made.
+
+- `canonicalFormOfCompleteInvariant_exists` (Proposition 4): the statement was replaced by one given by the author, which takes a map `I : α → β` and states that `s'` is a section of `corestriction I`. The AI adapted the proof to the new statement. The AI also added the hypothesis that `I` is a complete invariant to Proposition 4 in `docs/theory_en.tex` and `docs/theory_ja.tex`, and rebuilt both PDFs.
+- `corestriction_surjective_completeInvariant` (Proposition 3): as specified by the author, the statement now uses `corestriction` instead of a `let`. The AI moved the definition of `corestriction` above the theorem and adapted the proof.
+- `IsRetractionSectionPair`, `IsRetractionSectionPair.pointwise`, and `IsRetractionSectionPair.section_injective`: the AI renamed the bound variables to `ret` and `sec`. The meaning is unchanged.
+- `IsRetractionSectionPair.section_injective`, `corestriction_surjective_completeInvariant`, `canonicalForm_to_section`, `section_to_canonicalForm`, and `canonicalForm_iff_section_of_completeInvariant`: the AI replaced each `simp` that does not close its goal with the `simp only [...]` call suggested by `simp?`.
+- `isRetractionSectionPair_iff_rightInverse` and `isCompleteInvariant_iff_ker_eq`: the author chose these two equivalences with Mathlib's definitions, and the AI wrote their Lean statements and proofs.
+
+All proofs are checked by Lean, and CI fails if any declaration depends on `sorry` or on an axiom other than `propext`, `Classical.choice`, and `Quot.sound`.

@@ -34,8 +34,33 @@ jobs:
       - name: Build project
         run: lake build
 
-      - name: Check for sorry
+      - name: Check axioms
+        shell: bash
         run: |
-          if grep -r "sorry" --include="*.lean" .; then
-            echo "::warning::Incomplete proofs (sorry) remain in the project."
+          set -euo pipefail
+          log=$(mktemp)
+          # Print the axioms used by every declaration of the library.
+          lake env lean scripts/CheckAxioms.lean | tee "$log"
+          if grep -q 'sorryAx' "$log"; then
+            echo "::error::A declaration depends on sorryAx (an unfinished proof)."
+            exit 1
           fi
+          # Every declaration the script visits must yield one `#print axioms` result.
+          expected=$(sed -n 's/^axiom check: \([0-9][0-9]*\) declarations checked$/\1/p' "$log")
+          found=$(grep -c -E "^'.+' (depends on axioms: \\[|does not depend on any axioms\$)" "$log" || true)
+          if [ -z "$expected" ] || [ "$found" != "$expected" ]; then
+            echo "::error::Could not parse the #print axioms output (expected ${expected:-?} results, found $found)."
+            exit 1
+          fi
+          # Long axiom lists are wrapped over several lines, so join the lines first.
+          disallowed=$(tr '\n' ' ' < "$log" \
+            | grep -o 'depends on axioms: \[[^]]*\]' \
+            | sed -e 's/^depends on axioms: \[//' -e 's/\]$//' \
+            | tr ',' '\n' | tr -d ' ' \
+            | grep -v -x -E 'propext|Classical\.choice|Quot\.sound' \
+            | sort -u || true)
+          if [ -n "$disallowed" ]; then
+            echo "::error::Disallowed axioms: $(printf '%s' "$disallowed" | tr '\n' ' ')"
+            exit 1
+          fi
+          echo "Axiom check passed: $found declarations use no axioms other than propext, Classical.choice and Quot.sound."
