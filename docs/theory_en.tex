@@ -218,7 +218,7 @@ so $q \circ s = \mathrm{id}_{X/\sim}$.
 \end{proof}
 
 \begin{proposition}
-% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
+% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_existsUnique (via val_comp_corestriction, corestriction_unique), CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
 equivalence relation $\sim$ on $X$. The unique map $I' \colon X \to I(X)$
 satisfying $I = i \circ I'$ with respect to the inclusion $i \colon I(X) \to Y$
@@ -227,12 +227,14 @@ is surjective and is a complete invariant of $\sim$.
 \end{proposition}
 
 \begin{proof}
-Define $I' \colon X \to I(X)$ by $I'(x) = I(x)$ for all $x \in X$. Since
-$I = i \circ I'$ and $I'(X) = I(X)$, $I'$ is surjective. For any $x, x' \in X$,
+Define $I' \colon X \to I(X)$ by $I'(x) = I(x)$ for all $x \in X$. Then
+$i(I'(x)) = I(x)$ for all $x \in X$, so $I = i \circ I'$; this shows that such
+a map exists. Since $I'(X) = I(X)$, $I'$ is surjective. For any $x, x' \in X$,
 $x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$,
-so $I'$ is a complete invariant of $\sim$. If $I'' \colon X \to I(X)$ satisfies
-the condition, then $I'(x) = I(x) = I''(x)$ for all $x \in X$, so $I'$ is
-unique.
+so $I'$ is a complete invariant of $\sim$. If $I'' \colon X \to I(X)$ also
+satisfies $I = i \circ I''$, then $i(I'(x)) = I(x) = i(I''(x))$ for all
+$x \in X$, and since $i$ is injective, $I'(x) = I''(x)$. Therefore $I'' = I'$,
+so $I'$ is unique.
 \end{proof}
 
 \begin{definition}

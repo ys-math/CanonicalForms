@@ -135,13 +135,13 @@ $C = s \circ q$となる$q$のセクションが存在するとき$s' = s \circ 
 \end{proof}
 
 \begin{proposition}
-% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
+% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_existsUnique (via val_comp_corestriction, corestriction_unique), CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
 $X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像$I' \colon X \to I(X)$は全射かつ$\sim$の完全な不変量である.
 \hfill $\square$
 \end{proposition}
 
 \begin{proof}
-任意の$x \in X$に対して$I' \colon X \to I(X)$を$I'(x) = I(x)$で定める.\ $I = i \circ I'$であり$I'(X) = I(X)$だから$I'$は全射である.\ 任意の$x, x' \in X$に対して$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$なので$I'$は$\sim$の完全な不変量である.\ $I'' \colon X \to I(X)$が条件を満たすとすると任意の$x \in X$に対して$I'(x) = I(x) = I''(x)$なので$I'$は一意的である.
+任意の$x \in X$に対して$I' \colon X \to I(X)$を$I'(x) = I(x)$で定める.\ 任意の$x \in X$に対して$i(I'(x)) = I(x)$なので$I = i \circ I'$であり,\ このような写像は存在する.\ $I'(X) = I(X)$だから$I'$は全射である.\ 任意の$x, x' \in X$に対して$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$なので$I'$は$\sim$の完全な不変量である.\ $I'' \colon X \to I(X)$も$I = i \circ I''$を満たすとすると任意の$x \in X$に対して$i(I'(x)) = I(x) = i(I''(x))$であり,\ $i$は単射なので$I'(x) = I''(x)$である.\ よって$I'' = I'$となり$I'$は一意的である.
 \end{proof}
 
 \begin{definition}
