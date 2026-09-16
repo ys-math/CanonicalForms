@@ -60,7 +60,7 @@ theorem IsRetractionSectionPair.section_injective
     Function.Injective sec := by
   intro y₁ y₂ heq
   have := congr_arg ret heq
-  simp [h.pointwise ret sec] at this
+  simp only [h.pointwise ret sec] at this
   exact this
 
 -- theory_en.tex / theory_ja.tex: Proposition 3 (the unique map I' : X → I(X) with I = i ∘ I')
@@ -77,7 +77,7 @@ theorem corestriction_surjective_completeInvariant
   · intro ⟨y, x, hx⟩
     exact ⟨x, by simp [corestriction, hx]⟩
   · intro x y
-    simp [corestriction]
+    simp only [corestriction, Subtype.mk.injEq]
     exact hI x y
 
 -- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' determined by the complete invariant I)
