@@ -26,4 +26,4 @@ Thumbs.db
 
 *.swp
 *.swo
-.vscode/settings.json
+.vscode/settings.json/.lake/
