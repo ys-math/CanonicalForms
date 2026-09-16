@@ -57,6 +57,10 @@ CanonicalForms/
 - `IsRetractionSectionPair`, `IsRetractionSectionPair.pointwise`, `IsRetractionSectionPair.section_injective`：AIが束縛変数の名前を `ret` と `sec` に変更しました. 意味は変わりません.
 - `IsRetractionSectionPair.section_injective`, `corestriction_surjective_completeInvariant`, `canonicalForm_to_section`, `section_to_canonicalForm`, `canonicalForm_iff_section_of_completeInvariant`：ゴールを閉じない `simp` を, AIが `simp?` の提案する `simp only [...]` に置き換えました.
 - `isRetractionSectionPair_iff_rightInverse`, `isCompleteInvariant_iff_ker_eq`：Mathlibの定義との2つの同値性は著者が選び, Leanによる主張と証明はAIが記述しました.
+- `docs/theory_en.tex` と `docs/theory_ja.tex` の定義1, 定義2, 命題1：著者の指定に従い, Leanの定義と同様に同値関係ではなく任意の二項関係を対象とするように変更しました. 「骨格」という名前は任意の関係に対して用い, 「完全代表系」という名前は同値関係の場合に限って用います. 具体的な文言はAIが選び, 概要もこれに合わせてAIが修正しました. また, AIが定義2と命題1の英語版の "Let X be sets" を "Let X be a set" に修正しました.
+- `val_comp_corestriction`, `corestriction_unique`, `corestriction_existsUnique`（命題3, `I'` の存在と一意性）：主張は著者が与え, 証明はAIが記述しました. また, 両方のTeXファイルの命題3の証明で `I = i ∘ I'` が成り立つこと, 及び `i` が単射であることから `I'` が一意的であることを明示するようにAIが修正しました.
+- `corestriction_eq_rangeFactorization`：主張は著者が与え, 使用しているMathlibに `Set.rangeFactorization` が存在する場合にのみ追加するよう指定しました. AIが存在を確認して補題を追加し, 証明を記述しました.
+- 定義4, 命題4, 命題5（旧命題4）：定義4の新しい文言は著者が指定しました. 新しい定義4はセクション `s'` をデータとして取り, `s' ∘ I'` を `I` と `s'` によって定まる `∼` の標準形と呼びます. 新しい命題4（この写像は標準形である）, 命題5の新しい主張（`I'` のセクション `s'` が存在する）, `canonicalFormOfCompleteInvariant_isCanonicalForm`（命題4）の主張も著者が指定しました. 命題4と命題5のTeXによる証明は著者の概略に基づいてAIが記述し, 日本語の文言と概要の修正もAIが行いました. `canonicalFormOfCompleteInvariant_isCanonicalForm` のLeanによる証明は著者が提案したものであり, 変更なしでコンパイルが通りました. `canonicalFormOfCompleteInvariant_exists`（命題5, 主張は変更なし）の証明は, 新しいTeXの証明に沿うようにAIが書き直しました. その結果 `canonicalForm_exists` は使われなくなりましたが, 削除せずに残しています. Leanのコメント及びこの節のTeXの番号はAIが更新しました.
 
 すべての証明はLeanによって検査されています. また, `sorry` または `propext`, `Classical.choice`, `Quot.sound` 以外の公理に依存する宣言が一つでもあるとCIは失敗します.
 
