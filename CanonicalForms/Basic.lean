@@ -86,3 +86,25 @@ def canonicalFormOfCompleteInvariant
     (s' : Set.range I → α) :
     α → α :=
   s' ∘ corestriction I
+
+-- Mathlib bridge (no numbered TeX counterpart): relates IsRetractionSectionPair to Mathlib's
+-- Function.RightInverse; sec is a section of ret iff sec is a right inverse of ret.
+theorem isRetractionSectionPair_iff_rightInverse
+    (ret : α → β)
+    (sec : β → α) :
+    IsRetractionSectionPair ret sec ↔ Function.RightInverse sec ret :=
+  Function.rightInverse_iff_comp.symm
+
+-- Mathlib bridge (no numbered TeX counterpart): relates IsCompleteInvariant to Mathlib's
+-- Setoid.ker; f is a complete invariant of the setoid s iff the kernel of f is s.
+theorem isCompleteInvariant_iff_ker_eq
+    [s : Setoid α]
+    (f : α → β) :
+    IsCompleteInvariant (· ≈ ·) f ↔ Setoid.ker f = s := by
+  constructor
+  · intro hf
+    ext x y
+    exact (hf x y).symm
+  · intro hker x y
+    subst hker
+    exact Iff.rfl
