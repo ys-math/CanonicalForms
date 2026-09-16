@@ -48,13 +48,15 @@
 
 \begin{abstract}
 We formulate, in the language of set theory, the concepts of invariant and
-canonical form for an equivalence relation $\sim$ on a set $X$.
+canonical form for a binary relation $\sim$ on a set $X$, and study them
+mainly when $\sim$ is an equivalence relation.
 A map $f \colon X \to Y$ is called an invariant of $\sim$ if $x \sim y
 \implies f(x) = f(y)$, and a complete invariant if equality of images
-also implies the equivalence relation.
+also implies $x \sim y$.
 A canonical form is an invariant $C \colon X \to X$ satisfying $x \sim
-C(x)$ for all $x \in X$; its image $C(X)$ is called the skeleton or
-complete system of representatives of $\sim$.
+C(x)$ for all $x \in X$; its image $C(X)$ is called the skeleton of $\sim$,
+and, when $\sim$ is an equivalence relation, also the complete system of
+representatives of $\sim$.
 We characterise canonical forms via retraction--section pairs, showing that $C$
 is a canonical form if and only if there exists a section $s$ of the quotient
 map $q \colon X \to X/\sim$ such that $C = s \circ q$.
@@ -71,8 +73,8 @@ with~$^{\textrm{AC}}$.
 
 \begin{definition}
 % Lean: CanonicalForms.IsInvariant, CanonicalForms.IsCompleteInvariant (CanonicalForms/Basic.lean)
-Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be an
-equivalence relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
+Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be a
+binary relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
 if the following condition holds.
 \begin{center}
   ${^{\forall}x,y} \in X,\ (x \sim y \implies f(x) = f(y))$
@@ -95,21 +97,22 @@ of $\sim$.
 
 \begin{definition}
 % Lean: CanonicalForms.IsCanonicalForm, CanonicalForms.skeleton (CanonicalForms/CanonicalForm.lean)
-Let $X$ be sets. Let $C \colon X \to X$ be an invariant of an equivalence
+Let $X$ be a set. Let $C \colon X \to X$ be an invariant of a binary
 relation $\sim$ on $X$. We say that $C$ is a \textbf{canonical form} of $\sim$
 if the following condition holds.
 \begin{center}
   ${^{\forall}x} \in X,\ x \sim C(x)$
 \end{center}
-We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} or the
+We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} of $\sim$.
+When $\sim$ is an equivalence relation, we also call $C(X)$ the
 \textbf{complete system of representatives} of $\sim$.
 \hfill $\square$
 \end{definition}
 
 \begin{proposition}
 % Lean: CanonicalForms.canonicalForm_idempotent (CanonicalForms/CanonicalForm.lean)
-Let $X$ be sets. Let $C \colon X \to X$ be a canonical form of an
-equivalence relation $\sim$ on $X$. Then $C = C \circ C$.
+Let $X$ be a set. Let $C \colon X \to X$ be a canonical form of a binary
+relation $\sim$ on $X$. Then $C = C \circ C$.
 \hfill $\square$
 \end{proposition}
 
