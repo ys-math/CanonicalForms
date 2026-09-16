@@ -100,7 +100,7 @@ theorem corestriction_surjective_completeInvariant
     simp only [corestriction, Subtype.mk.injEq]
     exact hI x y
 
--- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' determined by the complete invariant I)
+-- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' of ∼ determined by I and s')
 def canonicalFormOfCompleteInvariant
     (I : α → β)
     (s' : Set.range I → α) :
