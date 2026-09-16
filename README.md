@@ -2,7 +2,7 @@
 
 A Lean 4 formalization of invariants and canonical forms for equivalence relations.
 
-[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions)
+[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml)
 
 ---
 

@@ -2,7 +2,7 @@
 
 同値関係に対する不変量と標準形のLean 4による形式化．
 
-[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions)
+[![Build Status](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/ys-math/CanonicalForms/actions/workflows/lean_action_ci.yml)
 
 ---
 
