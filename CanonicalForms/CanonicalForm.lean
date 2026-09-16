@@ -143,3 +143,15 @@ theorem canonicalForm_iff_section_of_completeInvariant
       rw [Function.comp_assoc, ← hIpair]
       exact hfact'
     exact ⟨sec, hpair, hCpair⟩
+
+-- theory_en.tex / theory_ja.tex: Proposition 4 (the canonical form determined by I and s' is a canonical form)
+theorem canonicalFormOfCompleteInvariant_isCanonicalForm
+    [s : Setoid α]
+    (I : α → β)
+    (hI : IsCompleteInvariant (· ≈ ·) I)
+    (s' : Set.range I → α)
+    (hs' : IsRetractionSectionPair (corestriction I) s') :
+    IsCanonicalForm (· ≈ ·) (canonicalFormOfCompleteInvariant I s') := by
+  obtain ⟨hsurj, hI'⟩ := corestriction_surjective_completeInvariant s.r I hI
+  exact (canonicalForm_iff_section_of_completeInvariant
+    (corestriction I) hI' hsurj _).mpr ⟨s', hs', rfl⟩

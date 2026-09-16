@@ -67,6 +67,26 @@ theorem IsRetractionSectionPair.section_injective
 def corestriction (I : α → β) : α → Set.range I :=
   fun x => ⟨I x, Set.mem_range_self x⟩
 
+-- theory_en.tex / theory_ja.tex: Proposition 3 (existence of I': the corestriction satisfies I = i ∘ I')
+theorem val_comp_corestriction (I : α → β) :
+    Subtype.val ∘ corestriction I = I :=
+  rfl
+
+-- theory_en.tex / theory_ja.tex: Proposition 3 (uniqueness of I': every J with I = i ∘ J is the corestriction)
+theorem corestriction_unique
+    (I : α → β)
+    (J : α → Set.range I)
+    (hJ : Subtype.val ∘ J = I) :
+    J = corestriction I := by
+  funext x
+  apply Subtype.ext
+  exact congr_fun hJ x
+
+-- theory_en.tex / theory_ja.tex: Proposition 3 (existence and uniqueness of I' : X → I(X) with I = i ∘ I')
+theorem corestriction_existsUnique (I : α → β) :
+    ∃! J : α → Set.range I, Subtype.val ∘ J = I :=
+  ⟨corestriction I, val_comp_corestriction I, fun J hJ => corestriction_unique I J hJ⟩
+
 -- theory_en.tex / theory_ja.tex: Proposition 3 (the corestriction I' is surjective and a complete invariant)
 theorem corestriction_surjective_completeInvariant
     (r : α → α → Prop)
@@ -80,7 +100,7 @@ theorem corestriction_surjective_completeInvariant
     simp only [corestriction, Subtype.mk.injEq]
     exact hI x y
 
--- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' determined by the complete invariant I)
+-- theory_en.tex / theory_ja.tex: Definition 4 (canonical form s' ∘ I' of ∼ determined by I and s')
 def canonicalFormOfCompleteInvariant
     (I : α → β)
     (s' : Set.range I → α) :
@@ -108,3 +128,9 @@ theorem isCompleteInvariant_iff_ker_eq
   · intro hker x y
     subst hker
     exact Iff.rfl
+
+-- Mathlib bridge (no numbered TeX counterpart): relates corestriction to Mathlib's
+-- Set.rangeFactorization; the corestriction of I is the range factorization of I.
+theorem corestriction_eq_rangeFactorization (I : α → β) :
+    corestriction I = Set.rangeFactorization I :=
+  rfl

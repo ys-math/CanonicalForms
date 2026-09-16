@@ -47,13 +47,13 @@
 \maketitle
 
 \begin{abstract}
-集合$X$上の同値関係$\sim$における不変量と標準形の概念を集合論の言葉で定式化する.\
-写像$f \colon X \to Y$が$x \sim y \implies f(x) = f(y)$を満たすとき$f$を$\sim$の不変量といい,\ 像が一致するならば同値関係も成り立つとき$f$を完全な不変量という.\ 標準形とは,\ 任意の$x \in X$に対して$x \sim C(x)$を満たす不変量$C \colon X \to X$のことであり,\ その像$C(X)$を$\sim$の骨格または完全代表系と呼ぶ.\ レトラクション-セクションペアを用いて標準形を特徴づけ,\ $C$が標準形であることと,\ 商写像$q \colon X \to X/\sim$のセクション$s$が存在して$C = s \circ q$となることが同値であることを示す.\ 全射である完全な不変量に対しても同様の特徴づけが成り立つ.\ 任意の完全な不変量$I \colon X \to Y$は全射である完全な不変量$I' \colon X \to I(X)$を用いて一意的に分解されることを証明し,\ $I'$のセクション$s'$が存在するとき$s' \circ I'$を完全な不変量$I$によって定まる$\sim$の標準形として定義する.\ 選択公理を仮定すれば任意の完全な不変量によって定まる標準形が存在することを示す.\ 選択公理を仮定した命題には$^{\textrm{AC}}$を付した.
+集合$X$上の二項関係$\sim$における不変量と標準形の概念を集合論の言葉で定式化し,\ 主に$\sim$が同値関係である場合を調べる.\
+写像$f \colon X \to Y$が$x \sim y \implies f(x) = f(y)$を満たすとき$f$を$\sim$の不変量といい,\ 像が一致するならば$x \sim y$も成り立つとき$f$を完全な不変量という.\ 標準形とは,\ 任意の$x \in X$に対して$x \sim C(x)$を満たす不変量$C \colon X \to X$のことであり,\ その像$C(X)$を$\sim$の骨格と呼び,\ $\sim$が同値関係であるときは完全代表系とも呼ぶ.\ レトラクション-セクションペアを用いて標準形を特徴づけ,\ $C$が標準形であることと,\ 商写像$q \colon X \to X/\sim$のセクション$s$が存在して$C = s \circ q$となることが同値であることを示す.\ 全射である完全な不変量に対しても同様の特徴づけが成り立つ.\ 任意の完全な不変量$I \colon X \to Y$は全射である完全な不変量$I' \colon X \to I(X)$を用いて一意的に分解されることを証明し,\ $I'$のセクション$s'$に対して$s' \circ I'$を$I$と$s'$によって定まる$\sim$の標準形と呼び,\ これが$\sim$の標準形であることを示す.\ 選択公理を仮定すれば$I'$はセクションを持ち,\ したがって任意の完全な不変量$I$に対してこのような標準形が存在することを示す.\ 選択公理を仮定した命題には$^{\textrm{AC}}$を付した.
 \end{abstract}
 
 \begin{definition}
 % Lean: CanonicalForms.IsInvariant, CanonicalForms.IsCompleteInvariant (CanonicalForms/Basic.lean)
-$X,Y$を集合とする.\ $f \colon X \to Y$を写像とし$\sim$を$X$上の同値関係とする.\ 次の条件が成り立つとき$f$は$\sim$の\textbf{不変量}であるという.
+$X,Y$を集合とする.\ $f \colon X \to Y$を写像とし$\sim$を$X$上の二項関係とする.\ 次の条件が成り立つとき$f$は$\sim$の\textbf{不変量}であるという.
 \begin{center}
   ${^{\forall}x,y} \in X,\ (x \sim y \implies f(x) = f(y))$
 \end{center}
@@ -72,17 +72,17 @@ $X$を集合とする.\ $\sim$を$X$上の同値関係とし$q \colon X \to X/\s
 
 \begin{definition}
 % Lean: CanonicalForms.IsCanonicalForm, CanonicalForms.skeleton (CanonicalForms/CanonicalForm.lean)
-$X$を集合とする.\ $C \colon X \to X$を$X$上の同値関係$\sim$の不変量とする.\ 次の条件が成り立つとき$C$は$\sim$の\textbf{標準形}であるという.
+$X$を集合とする.\ $C \colon X \to X$を$X$上の二項関係$\sim$の不変量とする.\ 次の条件が成り立つとき$C$は$\sim$の\textbf{標準形}であるという.
 \begin{center}
   ${^{\forall}x} \in X,\ x \sim C(x)$
 \end{center}
-$C$による$X$の像$C(X)$を$\sim$の\textbf{骨格}または\textbf{完全代表系}と呼ぶ.
+$C$による$X$の像$C(X)$を$\sim$の\textbf{骨格}と呼ぶ.\ 特に$\sim$が同値関係であるとき$C(X)$を$\sim$の\textbf{完全代表系}とも呼ぶ.
 \hfill $\square$
 \end{definition}
 
 \begin{proposition}
 % Lean: CanonicalForms.canonicalForm_idempotent (CanonicalForms/CanonicalForm.lean)
-$X$を集合とする.\ $C \colon X \to X$を$X$上の同値関係$\sim$の標準形とする.\ このとき$C = C \circ C$である.
+$X$を集合とする.\ $C \colon X \to X$を$X$上の二項関係$\sim$の標準形とする.\ このとき$C = C \circ C$である.
 \hfill $\square$
 \end{proposition}
 
@@ -135,20 +135,30 @@ $C = s \circ q$となる$q$のセクションが存在するとき$s' = s \circ 
 \end{proof}
 
 \begin{proposition}
-% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
+% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_existsUnique (via val_comp_corestriction, corestriction_unique), CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
 $X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像$I' \colon X \to I(X)$は全射かつ$\sim$の完全な不変量である.
 \hfill $\square$
 \end{proposition}
 
 \begin{proof}
-任意の$x \in X$に対して$I' \colon X \to I(X)$を$I'(x) = I(x)$で定める.\ $I = i \circ I'$であり$I'(X) = I(X)$だから$I'$は全射である.\ 任意の$x, x' \in X$に対して$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$なので$I'$は$\sim$の完全な不変量である.\ $I'' \colon X \to I(X)$が条件を満たすとすると任意の$x \in X$に対して$I'(x) = I(x) = I''(x)$なので$I'$は一意的である.
+任意の$x \in X$に対して$I' \colon X \to I(X)$を$I'(x) = I(x)$で定める.\ 任意の$x \in X$に対して$i(I'(x)) = I(x)$なので$I = i \circ I'$であり,\ このような写像は存在する.\ $I'(X) = I(X)$だから$I'$は全射である.\ 任意の$x, x' \in X$に対して$x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$なので$I'$は$\sim$の完全な不変量である.\ $I'' \colon X \to I(X)$も$I = i \circ I''$を満たすとすると任意の$x \in X$に対して$i(I'(x)) = I(x) = i(I''(x))$であり,\ $i$は単射なので$I'(x) = I''(x)$である.\ よって$I'' = I'$となり$I'$は一意的である.
 \end{proof}
 
 \begin{definition}
 % Lean: CanonicalForms.canonicalFormOfCompleteInvariant (CanonicalForms/Basic.lean)
-$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像$I' \colon X \to I(X)$のセクション$s' \colon I(X) \to X$が存在するとき$\sim$の標準形$s' \circ I'$を$\sim$の完全な不変量$I$によって定まる標準形と呼ぶ.
+$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像を$I' \colon X \to I(X)$とし,\ $s' \colon I(X) \to X$を$I'$のセクションとする.\ このとき写像$s' \circ I' \colon X \to X$を\textbf{$I$と$s'$によって定まる$\sim$の標準形}と呼ぶ.
 \hfill $\square$
 \end{definition}
+
+\begin{proposition}
+% Lean: CanonicalForms.canonicalFormOfCompleteInvariant_isCanonicalForm (CanonicalForms/CanonicalForm.lean)
+定義4の状況において,\ $I$と$s'$によって定まる$\sim$の標準形$s' \circ I'$は$\sim$の標準形である.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+命題3より$I' \colon X \to I(X)$は全射かつ$\sim$の完全な不変量である.\ $Y$を$I(X)$に置き換えて命題2を$I'$と$C = s' \circ I'$に適用する.\ $s'$は$C = s' \circ I'$を満たす$I'$のセクションなので(2)が成り立ち,\ したがって$s' \circ I'$は$\sim$の標準形である.
+\end{proof}
 
 \begin{lemma}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
 % Lean: CanonicalForms.surjective_has_section (CanonicalForms/Existence.lean)
@@ -162,12 +172,12 @@ $f \colon X \to Y$は全射なので任意の$y \in Y$に対して$f^{-1}(y) \ne
 
 \begin{proposition}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
 % Lean: CanonicalForms.canonicalFormOfCompleteInvariant_exists (CanonicalForms/Existence.lean)
-$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ このとき$\sim$の完全な不変量$I$によって定まる標準形は存在する.
+$X,Y$を集合とし$I \colon X \to Y$を$X$上の同値関係$\sim$の完全な不変量とする.\ 包含写像$i \colon I(X) \to Y$に対して$I = i \circ I'$を満たすただ一つの写像を$I' \colon X \to I(X)$とする.\ このとき$I'$のセクション$s' \colon I(X) \to X$が存在し,\ したがって$I$と$s'$によって定まる$\sim$の標準形が存在する.
 \hfill $\square$
 \end{proposition}
 
 \begin{proof}
-$q \colon X \to X/\sim$を商写像とすると$q$は全射なので補題2から$q \circ s = \mathrm{id}_{X/\sim}$を満たす写像$s \colon X/\sim \ \to X$が存在する.\ 補題1より$s \circ q$は$\sim$の標準形であり命題2より$I'$を$I$によって定まる全射とすれば$s \circ q = s' \circ I'$となる$I'$のセクション$s' \colon I(X) \to X$が存在する.\ このとき$s' \circ I'$は$\sim$の完全な不変量$I$によって定まる標準形である.
+命題3より$I'$は全射なので,\ 補題2から$I' \circ s' = \mathrm{id}_{I(X)}$を満たす写像$s' \colon I(X) \to X$,\ すなわち$I'$のセクションが存在する.\ 命題4より$I$と$s'$によって定まる$\sim$の標準形$s' \circ I'$は$\sim$の標準形である.
 \end{proof}
 
 \end{document}

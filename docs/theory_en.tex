@@ -48,31 +48,33 @@
 
 \begin{abstract}
 We formulate, in the language of set theory, the concepts of invariant and
-canonical form for an equivalence relation $\sim$ on a set $X$.
+canonical form for a binary relation $\sim$ on a set $X$, and study them
+mainly when $\sim$ is an equivalence relation.
 A map $f \colon X \to Y$ is called an invariant of $\sim$ if $x \sim y
 \implies f(x) = f(y)$, and a complete invariant if equality of images
-also implies the equivalence relation.
+also implies $x \sim y$.
 A canonical form is an invariant $C \colon X \to X$ satisfying $x \sim
-C(x)$ for all $x \in X$; its image $C(X)$ is called the skeleton or
-complete system of representatives of $\sim$.
+C(x)$ for all $x \in X$; its image $C(X)$ is called the skeleton of $\sim$,
+and, when $\sim$ is an equivalence relation, also the complete system of
+representatives of $\sim$.
 We characterise canonical forms via retraction--section pairs, showing that $C$
 is a canonical form if and only if there exists a section $s$ of the quotient
 map $q \colon X \to X/\sim$ such that $C = s \circ q$.
 An analogous characterisation holds for surjective complete invariants.
 We prove that every complete invariant $I \colon X \to Y$ factors uniquely
-through the surjective complete invariant $I' \colon X \to I(X)$, and define
-$s' \circ I'$ as the canonical form of $\sim$ determined by the complete
-invariant $I$, whenever a section $s'$ of $I'$ exists.
-Assuming the axiom of choice, we show that the canonical form determined by any
-complete invariant exists.
+through the surjective complete invariant $I' \colon X \to I(X)$. For a
+section $s'$ of $I'$, we call $s' \circ I'$ the canonical form of $\sim$
+determined by $I$ and $s'$, and show that it is a canonical form of $\sim$.
+Assuming the axiom of choice, we show that $I'$ has a section, so that such a
+canonical form exists for every complete invariant $I$.
 Propositions that assume the axiom of choice are marked
 with~$^{\textrm{AC}}$.
 \end{abstract}
 
 \begin{definition}
 % Lean: CanonicalForms.IsInvariant, CanonicalForms.IsCompleteInvariant (CanonicalForms/Basic.lean)
-Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be an
-equivalence relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
+Let $X, Y$ be sets. Let $f \colon X \to Y$ be a map and let $\sim$ be a
+binary relation on $X$. We say that $f$ is an \textbf{invariant} of $\sim$
 if the following condition holds.
 \begin{center}
   ${^{\forall}x,y} \in X,\ (x \sim y \implies f(x) = f(y))$
@@ -95,21 +97,22 @@ of $\sim$.
 
 \begin{definition}
 % Lean: CanonicalForms.IsCanonicalForm, CanonicalForms.skeleton (CanonicalForms/CanonicalForm.lean)
-Let $X$ be sets. Let $C \colon X \to X$ be an invariant of an equivalence
+Let $X$ be a set. Let $C \colon X \to X$ be an invariant of a binary
 relation $\sim$ on $X$. We say that $C$ is a \textbf{canonical form} of $\sim$
 if the following condition holds.
 \begin{center}
   ${^{\forall}x} \in X,\ x \sim C(x)$
 \end{center}
-We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} or the
+We call the image $C(X)$ of $X$ under $C$ the \textbf{skeleton} of $\sim$.
+When $\sim$ is an equivalence relation, we also call $C(X)$ the
 \textbf{complete system of representatives} of $\sim$.
 \hfill $\square$
 \end{definition}
 
 \begin{proposition}
 % Lean: CanonicalForms.canonicalForm_idempotent (CanonicalForms/CanonicalForm.lean)
-Let $X$ be sets. Let $C \colon X \to X$ be a canonical form of an
-equivalence relation $\sim$ on $X$. Then $C = C \circ C$.
+Let $X$ be a set. Let $C \colon X \to X$ be a canonical form of a binary
+relation $\sim$ on $X$. Then $C = C \circ C$.
 \hfill $\square$
 \end{proposition}
 
@@ -215,7 +218,7 @@ so $q \circ s = \mathrm{id}_{X/\sim}$.
 \end{proof}
 
 \begin{proposition}
-% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
+% Lean: CanonicalForms.corestriction, CanonicalForms.corestriction_existsUnique (via val_comp_corestriction, corestriction_unique), CanonicalForms.corestriction_surjective_completeInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
 equivalence relation $\sim$ on $X$. The unique map $I' \colon X \to I(X)$
 satisfying $I = i \circ I'$ with respect to the inclusion $i \colon I(X) \to Y$
@@ -224,24 +227,40 @@ is surjective and is a complete invariant of $\sim$.
 \end{proposition}
 
 \begin{proof}
-Define $I' \colon X \to I(X)$ by $I'(x) = I(x)$ for all $x \in X$. Since
-$I = i \circ I'$ and $I'(X) = I(X)$, $I'$ is surjective. For any $x, x' \in X$,
+Define $I' \colon X \to I(X)$ by $I'(x) = I(x)$ for all $x \in X$. Then
+$i(I'(x)) = I(x)$ for all $x \in X$, so $I = i \circ I'$; this shows that such
+a map exists. Since $I'(X) = I(X)$, $I'$ is surjective. For any $x, x' \in X$,
 $x \sim x' \iff I(x) = I(x') \iff I'(x) = I'(x')$,
-so $I'$ is a complete invariant of $\sim$. If $I'' \colon X \to I(X)$ satisfies
-the condition, then $I'(x) = I(x) = I''(x)$ for all $x \in X$, so $I'$ is
-unique.
+so $I'$ is a complete invariant of $\sim$. If $I'' \colon X \to I(X)$ also
+satisfies $I = i \circ I''$, then $i(I'(x)) = I(x) = i(I''(x))$ for all
+$x \in X$, and since $i$ is injective, $I'(x) = I''(x)$. Therefore $I'' = I'$,
+so $I'$ is unique.
 \end{proof}
 
 \begin{definition}
 % Lean: CanonicalForms.canonicalFormOfCompleteInvariant (CanonicalForms/Basic.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
-equivalence relation $\sim$ on $X$. When a section $s' \colon I(X) \to X$ of
-the unique map $I' \colon X \to I(X)$ satisfying $I = i \circ I'$ with respect
-to the inclusion $i \colon I(X) \to Y$ exists, we call the canonical form
-$s' \circ I'$ of $\sim$ the \textbf{canonical form of $\sim$ determined by the
-complete invariant $I$}.
+equivalence relation $\sim$ on $X$. Let $I' \colon X \to I(X)$ be the unique
+map satisfying $I = i \circ I'$ with respect to the inclusion
+$i \colon I(X) \to Y$, and let $s' \colon I(X) \to X$ be a section of $I'$.
+We call the map $s' \circ I' \colon X \to X$ the \textbf{canonical form of
+$\sim$ determined by $I$ and $s'$}.
 \hfill $\square$
 \end{definition}
+
+\begin{proposition}
+% Lean: CanonicalForms.canonicalFormOfCompleteInvariant_isCanonicalForm (CanonicalForms/CanonicalForm.lean)
+In the setting of Definition~4, the canonical form $s' \circ I'$ of $\sim$
+determined by $I$ and $s'$ is a canonical form of $\sim$.
+\hfill $\square$
+\end{proposition}
+
+\begin{proof}
+By Proposition~3, $I' \colon X \to I(X)$ is a surjective complete invariant of
+$\sim$. Apply Proposition~2 to $I'$, with $Y$ replaced by $I(X)$, and to
+$C = s' \circ I'$. Since $s'$ is a section of $I'$ with $C = s' \circ I'$,
+condition~(2) holds, and hence $s' \circ I'$ is a canonical form of $\sim$.
+\end{proof}
 
 \begin{lemma}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
 % Lean: CanonicalForms.surjective_has_section (CanonicalForms/Existence.lean)
@@ -260,19 +279,19 @@ $g \colon Y \to X$ satisfies $f \circ g = \mathrm{id}_Y$.
 \begin{proposition}\hspace{-0.7em}$^{\textrm{AC}}$\hspace{0.2em}
 % Lean: CanonicalForms.canonicalFormOfCompleteInvariant_exists (CanonicalForms/Existence.lean)
 Let $X, Y$ be sets and let $I \colon X \to Y$ be a complete invariant of an
-equivalence relation $\sim$ on $X$. Then the canonical form of $\sim$
-determined by the complete invariant $I$ exists.
+equivalence relation $\sim$ on $X$. Let $I' \colon X \to I(X)$ be the unique
+map satisfying $I = i \circ I'$ with respect to the inclusion
+$i \colon I(X) \to Y$. Then there exists a section $s' \colon I(X) \to X$ of
+$I'$, and hence there exists a canonical form of $\sim$ determined by $I$ and
+$s'$.
 \hfill $\square$
 \end{proposition}
 
 \begin{proof}
-Let $q \colon X \to X/\sim$ be the quotient map. Since $q$ is surjective, by
-Lemma~2 there exists a map $s \colon X/\sim \to X$ satisfying $q \circ s =
-\mathrm{id}_{X/\sim}$. By Lemma~1, $s \circ q$ is a canonical form of $\sim$,
-and by Proposition~2, taking $I'$ to be the surjection determined by $I$, there
-exists a section $s' \colon I(X) \to X$ of $I'$ such that $s \circ q = s' \circ
-I'$. Then $s' \circ I'$ is the canonical form of $\sim$ determined by the
-complete invariant $I$.
+By Proposition~3, $I'$ is surjective, so by Lemma~2 there exists a map
+$s' \colon I(X) \to X$ satisfying $I' \circ s' = \mathrm{id}_{I(X)}$, that
+is, a section of $I'$. By Proposition~4, the canonical form $s' \circ I'$ of
+$\sim$ determined by $I$ and $s'$ is a canonical form of $\sim$.
 \end{proof}
 
 \end{document}
